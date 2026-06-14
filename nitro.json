@@ -1,0 +1,23 @@
+{
+  "cxxNamespace": ["example3"],
+  "ios": {
+    "iosModuleName": "Example3"
+  },
+  "android": {
+    "androidNamespace": ["example3"],
+    "androidCxxLibName": "example3"
+  },
+  "autolinking": {
+    "Example3": {
+      "ios": {
+        "language": "swift",
+        "implementationClassName": "HybridExample3"
+      },
+      "android": {
+        "language": "kotlin",
+        "implementationClassName": "HybridExample3"
+      }
+    }
+  },
+  "ignorePaths": ["node_modules"]
+}
