@@ -155,6 +155,7 @@ jobs:
 
   build-ios:
     runs-on: macos-latest
+    #runs-on: macos-14
 
     env:
       XCODE_VERSION: 26
@@ -197,7 +198,7 @@ jobs:
       - name: Install cocoapods
         if: env.turbo_cache_hit != 1 && steps.cocoapods-cache.outputs.cache-hit != 'true'
         run: |
-          cd example
+          cd ios
           bundle install
           bundle exec pod repo update --verbose
           bundle exec pod install --project-directory=ios
@@ -206,11 +207,25 @@ jobs:
         run: |
           yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}"
 
-      - name: Upload iOS Artifacts
+      - name: Build iOS App for Simulator
+        run: |
+          xcodebuild -workspace ios/react_native_example3.xcworkspace \
+            -scheme react_native_example3 \
+            -configuration Release \
+            -sdk iphonesimulator \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Compress Simulator Build
+        run: |
+          cd build/Build/Products/Release-iphonesimulator
+          zip -r ../../../../simulator-build.zip react_native_example3.app
+
+      - name: Upload Simulator Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ios-build-outputs
-          path: example/ios/build/
+          name: ios-simulator-build
+          path: simulator-build.zip
 
   build-web:
     runs-on: ubuntu-latest
