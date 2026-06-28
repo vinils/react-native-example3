@@ -246,29 +246,28 @@ jobs:
         run: |
           cd example/ios
           xcodebuild \
-            -workspace Example3Example.xcworkspace \
+            -workspace example/ios/Example3Example.xcworkspace \
             -scheme Example3Example \
-            -configuration Release \
-            -derivedDataPath build \
-            -arch arm64 \
-            -sdk iphoneos \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -derivedDataPath ios/build \
+            -destination 'platform=iOS Simulator,name=iPhone 17 Pro,OS=26.0.1' \
+            ONLY_ACTIVE_ARCH=NO \
+            DEBUG_INFORMATION_FORMAT=dwarf-with-dsym \
             clean build
-          cd ../..
 
-      - name: Create IPA
+      - name: Compress App for Distribution Artifacts
         run: |
-          cd example/ios/build
-          mkdir -p Payload
-          mv Build/Products/Release-iphoneos/Example3Example.app Payload/
-          zip -r Example3Example.ipa Payload/
-          cd ../../..
+          mkdir -p build-output
+          cp -R example/ios/build/Build/Products/Debug-iphonesimulator/Example3Example.app build-output/
+          cd build-output && zip -r ios-simulator-build.zip Example3Example.app
 
-      - name: Upload iOS Device IPA
+      - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ios-device-ipa-iphone16pro
-          path: example/ios/build/Example3Example.ipa
-          if-no-files-found: warn
+          name: ios-simulator-app
+          path: build-output/ios-simulator-build.zip
+
 
   build-web:
     runs-on: ubuntu-latest
