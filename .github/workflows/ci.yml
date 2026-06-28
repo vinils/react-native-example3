@@ -147,6 +147,12 @@ jobs:
         run: |
           yarn turbo run build:android --cache-dir="${{ env.TURBO_CACHE_DIR }}"
 
+      - name: Upload Android Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-build-outputs
+          path: example/android/app/build/outputs/
+
   build-ios:
     runs-on: macos-latest
 
@@ -200,6 +206,12 @@ jobs:
         run: |
           yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}"
 
+      - name: Upload iOS Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build-outputs
+          path: example/ios/build/
+
   build-web:
     runs-on: ubuntu-latest
 
@@ -213,3 +225,9 @@ jobs:
       - name: Build example for Web
         run: |
           yarn example build:web
+
+      - name: Upload Web Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-build-outputs
+          path: example/dist/
