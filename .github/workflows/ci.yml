@@ -211,7 +211,6 @@ jobs:
           name: ios-build-outputs
           path: |
             example/ios/build/
-            example/ios/Pods/
           if-no-files-found: warn
 
   build-ios-device:
