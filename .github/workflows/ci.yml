@@ -205,6 +205,15 @@ jobs:
         run: |
           yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}" --environment=simulator
 
+      - name: Upload iOS Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build-outputs
+          path: |
+            example/ios/build/
+            example/ios/Pods/
+          if-no-files-found: warn
+
   build-web:
     runs-on: ubuntu-latest
 
