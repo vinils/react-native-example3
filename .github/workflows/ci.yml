@@ -197,7 +197,7 @@ jobs:
 
       - name: Install Cocoapods
         run: |
-          cd ios
+          cd example/ios
           pod install
           cd ..
 
