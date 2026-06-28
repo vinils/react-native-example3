@@ -207,7 +207,7 @@ jobs:
 
       - name: Build iOS App for Simulator
         run: |
-          xcodebuild -workspace ios/react_native_example3.xcworkspace \
+          xcodebuild -workspace example/ios/react_native_example3.xcworkspace \
             -scheme react_native_example3 \
             -configuration Release \
             -sdk iphonesimulator \
