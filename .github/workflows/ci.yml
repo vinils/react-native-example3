@@ -198,32 +198,13 @@ jobs:
       - name: Install Cocoapods
         run: |
           cd example/ios
+          pod spec create
           pod install
           cd ..
 
       - name: Build example for iOS
         run: |
-          yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}"
-
-      - name: Build iOS App for Simulator
-        run: |
-          xcodebuild -workspace example/ios/Example3Example.xcodeproj/project.xcworkspace \
-            -scheme react_native_example3 \
-            -configuration Release \
-            -sdk iphonesimulator \
-            -derivedDataPath build \
-            CODE_SIGNING_ALLOWED=NO
-
-      - name: Compress Simulator Build
-        run: |
-          cd build/Build/Products/Release-iphonesimulator
-          zip -r ../../../../simulator-build.zip react_native_example3.app
-
-      - name: Upload Simulator Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ios-simulator-build
-          path: simulator-build.zip
+          yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}" --environment=simulator
 
   build-web:
     runs-on: ubuntu-latest
