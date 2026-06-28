@@ -195,13 +195,11 @@ jobs:
         with:
           xcode-version: ${{ env.XCODE_VERSION }}
 
-      - name: Install cocoapods
-        if: env.turbo_cache_hit != 1 && steps.cocoapods-cache.outputs.cache-hit != 'true'
+      - name: Install Cocoapods
         run: |
           cd ios
-          bundle install
-          bundle exec pod repo update --verbose
-          bundle exec pod install --project-directory=ios
+          pod install
+          cd ..
 
       - name: Build example for iOS
         run: |
