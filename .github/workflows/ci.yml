@@ -190,7 +190,7 @@ jobs:
             -configuration Debug \
             -sdk iphonesimulator \
             -derivedDataPath example/ios/build \
-            -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.5'
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.5'
             ONLY_ACTIVE_ARCH=NO \
             DEBUG_INFORMATION_FORMAT=dwarf-with-dsym \
             clean build
