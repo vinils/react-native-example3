@@ -182,6 +182,10 @@ jobs:
           pod install
           cd ../..
 
+      - name: Generate Production JavaScript Offline Bundle
+        run: |
+          npx react-native build-ios --mode Debug
+
       - name: Build example for iOS Device (Release)
         run: |
           xcodebuild \
