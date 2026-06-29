@@ -184,7 +184,7 @@ jobs:
 
       - name: Generate Production JavaScript Offline Bundle
         run: |
-          npx react-native build-ios --mode debug
+          npx react-native build-ios
 
       - name: Build example for iOS Device (Release)
         run: |
