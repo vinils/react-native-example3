@@ -154,7 +154,7 @@ jobs:
           path: example/android/app/build/outputs/
 
   build-ios:
-    runs-on: macos-`14
+    runs-on: macos-14
     
     env:
       XCODE_VERSION: 26
