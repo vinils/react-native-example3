@@ -158,8 +158,6 @@ jobs:
     
     env:
       XCODE_VERSION: 16.4.0
-      RCT_USE_RN_DEP: 1
-      RCT_USE_PREBUILT_RNCORE: 1
 
     steps:
       - name: Checkout
@@ -210,7 +208,7 @@ jobs:
           pod install --repo-update
           cd ../..
 
-      - name: Bundle React Native JS (production)
+      - name: Bundle React Native JS
         run: |
           cd example
           npx react-native bundle \
@@ -221,7 +219,7 @@ jobs:
             --assets-dest ios/main.jsbundle_assets
           cd ..
           
-      - name: Build example for iOS Device (Release)
+      - name: Build example for iOS Device
         run: |
           xcodebuild \
             -workspace example/ios/Example3Example.xcworkspace \
@@ -248,18 +246,18 @@ jobs:
           # Verify
           ls -la "$APP_DIR" | sed -n '1,200p'
 
-      - name: Compress Release Simulator App
+      - name: Compress Simulator App
         run: |
           mkdir -p build-output
           cp -R example/ios/build/Build/Products/Release-iphonesimulator/Example3Example.app build-output/
           cd build-output
-          zip -r ios-simulator-release.zip Example3Example.app
+          zip -r ios-simulator.zip Example3Example.app
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ios-simulator-app
-          path: build-output/ios-simulator-release.zip
+          path: build-output/ios-simulator.zip
 
 
   build-web:
