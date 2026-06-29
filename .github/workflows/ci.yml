@@ -210,11 +210,6 @@ jobs:
           pod install --repo-update
           cd ../..
 
-      - name: Create JS bundle
-        run: |
-          cd example
-          npx react-native build-ios --mode Debug --verbose
-
       - name: Bundle React Native JS (production)
         run: |
           cd example
