@@ -207,40 +207,54 @@ jobs:
       - name: Install Cocoapods
         run: |
           cd example/ios
-          pod install
+          pod install --repo-update
           cd ../..
+
+      - name: Ensure NODE_BINARY available to Xcode build phases
+        run: echo "NODE_BINARY=$(which node)" >> $GITHUB_ENV
 
       - name: Create JS bundle
         run: |
           cd example
           npx react-native build-ios --mode Debug --verbose
 
-      - name: Bundle React Native JS for iOS
+      - name: Bundle React Native JS (production)
         run: |
           cd example
-          # ensure node binary exists for any Xcode run script
-          export NODE_BINARY=$(which node) || true
           npx react-native bundle \
             --platform ios \
             --dev false \
             --entry-file index.js \
             --bundle-output ios/main.jsbundle \
-            --assets-dest ios
-        env:
-          CI: true
+            --assets-dest ios/main.jsbundle_assets
+          cd ..
           
       - name: Build example for iOS Device (Release)
         run: |
           xcodebuild \
             -workspace example/ios/Example3Example.xcworkspace \
             -scheme Example3Example \
-            -configuration Debug \
+            -configuration Release \
             -sdk iphonesimulator \
             -derivedDataPath example/ios/build \
             -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.5' \
             ONLY_ACTIVE_ARCH=NO \
             DEBUG_INFORMATION_FORMAT=dwarf-with-dsym \
             clean build
+
+      - name: Embed bundle into .app (safety copy)
+        run: |
+          APP_DIR="example/ios/build/Build/Products/Release-iphonesimulator/Example3Example.app"
+          echo "Checking for bundle at $APP_DIR/main.jsbundle"
+          # Copy bundle and asset files into the .app if not already embedded
+          if [ -f example/ios/main.jsbundle ]; then
+            cp example/ios/main.jsbundle "$APP_DIR/" || true
+          fi
+          if [ -d example/ios/main.jsbundle_assets ]; then
+            cp -R example/ios/main.jsbundle_assets/* "$APP_DIR/" || true
+          fi
+          # Verify
+          ls -la "$APP_DIR" | sed -n '1,200p'
 
       - name: Compress App for Distribution Artifacts
         run: |
