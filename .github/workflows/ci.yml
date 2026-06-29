@@ -217,6 +217,7 @@ jobs:
 
       - name: Bundle React Native JS for iOS
         run: |
+          cd example
           # ensure node binary exists for any Xcode run script
           export NODE_BINARY=$(which node) || true
           npx react-native bundle \
