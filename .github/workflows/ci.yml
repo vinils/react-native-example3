@@ -210,9 +210,6 @@ jobs:
           pod install --repo-update
           cd ../..
 
-      - name: Ensure NODE_BINARY available to Xcode build phases
-        run: echo "NODE_BINARY=$(which node)" >> $GITHUB_ENV
-
       - name: Create JS bundle
         run: |
           cd example
