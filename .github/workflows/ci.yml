@@ -176,6 +176,10 @@ jobs:
         with:
           xcode-version: ${{ env.XCODE_VERSION }}
 
+      - name: Create JS bundle
+        run: |
+          npx react-native build-ios --mode Debug --verbose
+
       - name: Install Cocoapods
         run: |
           cd example/ios
