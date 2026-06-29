@@ -256,11 +256,12 @@ jobs:
           # Verify
           ls -la "$APP_DIR" | sed -n '1,200p'
 
-      - name: Compress App for Distribution Artifacts
+      - name: Compress Release Simulator App
         run: |
           mkdir -p build-output
-          cp -R example/ios/build/Build/Products/Debug-iphonesimulator/Example3Example.app build-output/
-          cd build-output && zip -r ios-simulator-build.zip Example3Example.app
+          cp -R example/ios/build/Build/Products/Release-iphonesimulator/Example3Example.app build-output/
+          cd build-output
+          zip -r ios-simulator-release.zip Example3Example.app
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
