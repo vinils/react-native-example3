@@ -157,7 +157,7 @@ jobs:
     runs-on: macos-15
     
     env:
-      XCODE_VERSION: 15.2.0
+      XCODE_VERSION: 16.4.0
       RCT_USE_RN_DEP: 1
       RCT_USE_PREBUILT_RNCORE: 1
 
