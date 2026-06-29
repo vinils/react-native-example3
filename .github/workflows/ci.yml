@@ -267,7 +267,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ios-simulator-app
-          path: build-output/ios-simulator-build.zip
+          path: build-output/ios-simulator-release.zip
 
 
   build-web:
