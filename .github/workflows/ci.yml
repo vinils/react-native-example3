@@ -296,7 +296,7 @@ jobs:
       - name: Compress Simulator App
         run: |
           mkdir -p build-output
-          cp -R ${{ env.IOS_APP_PATH }} build-output/
+          cp -R "${{ env.IOS_APP_PATH }}" build-output/
           cd build-output
           zip -r ios-simulator.zip Example3Example.app
 
