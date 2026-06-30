@@ -240,7 +240,7 @@ jobs:
 
       - name: Build example for iOS
         run: |
-          yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}" CONFIGURATION_BUILD_DIR="./build" -- -- --configuration Release -sdk iphonesimulator
+          yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}" CONFIGURATION_BUILD_DIR="$(pwd)/build" -- -- --configuration Release -sdk iphonesimulator
 
       - name: Find .app path and set variable
         continue-on-error: true
