@@ -262,7 +262,6 @@ jobs:
           ALL_APPS3=$(find . ~/Library/Developer/Xcode/DerivedData -name "*.app" -type d | paste -sd "," -)
           echo "ALL_APPS3=$ALL_APPS3"
           echo "ALL_APPS3=$ALL_APPS3" >> $GITHUB_OUTPUT
-          echo "IOS_APP_PATH=$ALL_APPS3" >> $GITHUB_ENV
 
 
           echo "=== Found the following .app bundles: ==="
@@ -282,7 +281,7 @@ jobs:
       - name: Embed bundle into .app (safety copy)
         run: |
           APP_DIR=$(find . ~/Library/Developer/Xcode/DerivedData -name "*.app" -type d -print -quit 2>/dev/null)
-          echo "IOS_APP_PATH=$APP_PATH" >> $GITHUB_ENV
+          echo "IOS_APP_PATH=$APP_DIR" >> $GITHUB_ENV
         
           echo "Checking for bundle at $APP_DIR/main.jsbundle"
           # Copy bundle and asset files into the .app if not already embedded
