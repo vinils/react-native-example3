@@ -240,7 +240,7 @@ jobs:
 
       - name: Build example for iOS
         run: |
-          yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}" -- -- --configuration Release -sdk iphonesimulator CONFIGURATION_BUILD_DIR=$(pwd)/dist
+          yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}" -- -- --configuration Release -sdk iphonesimulator
 
       - name: Find .app path and set variable
         id: locate_app
@@ -274,7 +274,7 @@ jobs:
 
       - name: Embed bundle into .app (safety copy)
         run: |
-          APP_DIR="example/ios/build/Build/Products/Release-iphonesimulator/Example3Example.app"
+          APP_DIR="build/Build/Products/Release-iphonesimulator/Example3Example.app"
           echo "Checking for bundle at $APP_DIR/main.jsbundle"
           # Copy bundle and asset files into the .app if not already embedded
           if [ -f example/ios/main.jsbundle ]; then
@@ -289,7 +289,7 @@ jobs:
       - name: Compress Simulator App
         run: |
           mkdir -p build-output
-          cp -R example/ios/build/Build/Products/Release-iphonesimulator/Example3Example.app build-output/
+          cp -R build/Build/Products/Release-iphonesimulator/Example3Example.app build-output/
           cd build-output
           zip -r ios-simulator.zip Example3Example.app
 
