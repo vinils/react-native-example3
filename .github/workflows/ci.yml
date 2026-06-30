@@ -240,7 +240,7 @@ jobs:
 
       - name: Build example for iOS
         run: |
-          yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}" -- -- --configuration Release -sdk iphonesimulator
+          yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}" -- -- --configuration Release -sdk iphonesimulator CONFIGURATION_BUILD_DIR=$(pwd)/dist
 
       - name: Find .app path and set variable
         id: locate_app
