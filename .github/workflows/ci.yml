@@ -241,10 +241,10 @@ jobs:
       - name: Build example for iOS
         run: |
           yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}" -- \
-          --configuration Release \
-          -sdk iphonesimulator \
-          -derivedDataPath example/ios/build \
-          -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.5'
+          "--configuration" "Release" \
+          "-sdk" "iphonesimulator" \
+          "-derivedDataPath" "example/ios/build" \
+          "-destination" "platform=iOS Simulator,name=iPhone 16 Pro,OS=18.5"
 
       - name: Find .app path and set variable
         continue-on-error: true
