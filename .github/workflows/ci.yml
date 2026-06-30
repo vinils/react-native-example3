@@ -257,11 +257,15 @@ jobs:
  #           -derivedDataPath example/ios/build \
  #           -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.5'
 
-      - name: Embed bundle into .app (safety copy)
+      - name: Find build output path
         run: |
           APP_DIR=$(find . ~/Library/Developer/Xcode/DerivedData -name "*.app" -type d -print -quit 2>/dev/null)
           echo "IOS_APP_PATH=$APP_DIR" >> $GITHUB_ENV
         
+      - name: Embed bundle into .app (safety copy)
+        run: |
+          APP_DIR="${{ env.IOS_APP_PATH }}"
+       
           echo "Checking for bundle at $APP_DIR/main.jsbundle"
           # Copy bundle and asset files into the .app if not already embedded
           if [ -f example/ios/main.jsbundle ]; then
