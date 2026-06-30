@@ -221,7 +221,7 @@ jobs:
 
       - name: Build example for iOS
         run: |
-          yarn turbo run build:ios -- --configuration debug
+          yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}" -- --configuration Release
           
  #     - name: Build example for iOS Device
  #       run: |
