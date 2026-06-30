@@ -275,7 +275,7 @@ jobs:
 
       - name: Embed bundle into .app (safety copy)
         run: |
-          APP_DIR="build/Build/Products/Release-iphonesimulator/Example3Example.app"
+          APP_DIR="/Users/runner/Library/Developer/Xcode/DerivedData/Example3Example-fziywkvrvlauieetlsniwdnccwcs/Build/Products/Debug-iphonesimulator/Example3Example.app"
           echo "Checking for bundle at $APP_DIR/main.jsbundle"
           # Copy bundle and asset files into the .app if not already embedded
           if [ -f example/ios/main.jsbundle ]; then
@@ -290,7 +290,7 @@ jobs:
       - name: Compress Simulator App
         run: |
           mkdir -p build-output
-          cp -R build/Build/Products/Release-iphonesimulator/Example3Example.app build-output/
+          cp -R /Users/runner/Library/Developer/Xcode/DerivedData/Example3Example-fziywkvrvlauieetlsniwdnccwcs/Build/Products/Debug-iphonesimulator/Example3Example.app build-output/
           cd build-output
           zip -r ios-simulator.zip Example3Example.app
 
