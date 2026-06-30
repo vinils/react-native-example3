@@ -262,6 +262,8 @@ jobs:
           ALL_APPS3=$(find . ~/Library/Developer/Xcode/DerivedData -name "*.app" -type d | paste -sd "," -)
           echo "ALL_APPS3=$ALL_APPS3"
           echo "ALL_APPS3=$ALL_APPS3" >> $GITHUB_OUTPUT
+          echo "IOS_APP_PATH=$ALL_APPS3" >> $GITHUB_ENV
+
 
           echo "=== Found the following .app bundles: ==="
           find . -name "*.app" -type d
