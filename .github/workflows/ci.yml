@@ -240,7 +240,19 @@ jobs:
 
       - name: Build example for iOS
         run: |
-          yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}" -- -- --configuration Release -sdk iphonesimulator CONFIGURATION_BUILD_DIR=$(pwd)/dist
+          yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}" -- -- --configuration Release -sdk iphonesimulator
+
+      - name: Find .app path and set variable
+        run: |
+          # 1. Search both the project directory and Xcode's system DerivedData folder
+          # 2. Narrow it down strictly to the Release-iphonesimulator build target
+          APP_PATH=$(find . ~/Library/Developer/Xcode/DerivedData -name "*.app" -path "*/Release-iphonesimulator/*" -type d -print -quit)
+          
+          # Check if the file was actually found to prevent silent failures
+          if [ -z "$APP_PATH" ]; then
+            echo "::error::Could not find the compiled .app bundle!"
+            exit 1
+          fi          
 
  #     - name: Build example for iOS Device
  #       run: |
