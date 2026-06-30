@@ -250,12 +250,13 @@ jobs:
           APP_PATH=$(find . ~/Library/Developer/Xcode/DerivedData -name "*.app" -path "*/Release-iphonesimulator/*" -type d -print -quit)
 
           ALL_APPS=$(find . -name "*.app" -type d | paste -sd "," -)
-          echo "ALL_APPS=$ALL_APPS" >> $GITHUB_OUTPUT
+          echo "ALL_APPS=$ALL_APPS"
           
           ALL_APPS2=$(find ~/Library/Developer/Xcode/DerivedData -name "*.app" -type d | paste -sd "," -)
-          echo "ALL_APPS2=$ALL_APPS2" >> $GITHUB_OUTPUT
+          echo "ALL_APPS2=$ALL_APPS2"
 
           ALL_APPS3=$(find . ~/Library/Developer/Xcode/DerivedData -name "*.app" -type d | paste -sd "," -)
+          echo "ALL_APPS3=$ALL_APPS3"
           echo "ALL_APPS3=$ALL_APPS3" >> $GITHUB_OUTPUT
 
           echo "=== Found the following .app bundles: ==="
