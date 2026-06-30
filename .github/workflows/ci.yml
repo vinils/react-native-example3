@@ -219,19 +219,19 @@ jobs:
             --assets-dest ios/main.jsbundle_assets
           cd ..
 
-#      - name: Build example for iOS
-#        run: |
-#          yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}"
-          
-      - name: Build example for iOS Device
+      - name: Build example for iOS
         run: |
-          xcodebuild \
-            -workspace example/ios/Example3Example.xcworkspace \
-            -scheme Example3Example \
-            -configuration Release \
-            -sdk iphonesimulator \
-            -derivedDataPath example/ios/build \
-            -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.5'
+          yarn turbo run build:ios --configuration Release --cache-dir="${{ env.TURBO_CACHE_DIR }}" -sdk iphonesimulator
+          
+ #     - name: Build example for iOS Device
+ #       run: |
+ #         xcodebuild \
+ #           -workspace example/ios/Example3Example.xcworkspace \
+ #           -scheme Example3Example \
+ #           -configuration Release \
+ #           -sdk iphonesimulator \
+ #           -derivedDataPath example/ios/build \
+ #           -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.5'
 
       - name: Embed bundle into .app (safety copy)
         run: |
