@@ -240,34 +240,13 @@ jobs:
 
       - name: Build example for iOS
         run: |
-          yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}" -- -- \
-          "--configuration" "Release" \
-          "-sdk" "iphonesimulator" \
-          "-derivedDataPath" "example/ios/build" \
-          "-destination" "platform=iOS Simulator,name=iPhone 16 Pro,OS=18.5"
+          yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}"
+#          yarn turbo run build:ios --cache-dir="${{ env.TURBO_CACHE_DIR }}" -- -- \
+#          "--configuration" "Release" \
+#          "-sdk" "iphonesimulator" \
+#          "-derivedDataPath" "example/ios/build" \
+#          "-destination" "platform=iOS Simulator,name=iPhone 16 Pro,OS=18.5"
 
-      - name: Find .app path and set variable
-        continue-on-error: true
-        run: |
-          # 1. Search both the project directory and Xcode's system DerivedData folder
-          # 2. Narrow it down strictly to the Release-iphonesimulator build target
-          APP_PATH=$(find . ~/Library/Developer/Xcode/DerivedData -name "*.app" -path "*/Release-iphonesimulator/*" -type d -print -quit)
-
-          ALL_APPS=$(find . -name "*.app" -type d | paste -sd "," -)
-          echo "ALL_APPS=$ALL_APPS"
-          
-          ALL_APPS2=$(find ~/Library/Developer/Xcode/DerivedData -name "*.app" -type d | paste -sd "," -)
-          echo "ALL_APPS2=$ALL_APPS2"
-
-          ALL_APPS3=$(find . ~/Library/Developer/Xcode/DerivedData -name "*.app" -type d | paste -sd "," -)
-          echo "ALL_APPS3=$ALL_APPS3"
-          echo "ALL_APPS3=$ALL_APPS3" >> $GITHUB_OUTPUT
-
-
-          echo "=== Found the following .app bundles: ==="
-          find . -name "*.app" -type d
-          echo "========================================="
-          
  #     - name: Build example for iOS Device
  #       run: |
  #         xcodebuild \
